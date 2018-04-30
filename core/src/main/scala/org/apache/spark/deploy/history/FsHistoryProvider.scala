@@ -19,20 +19,18 @@ package org.apache.spark.deploy.history
 
 import java.io.{FileNotFoundException, IOException, OutputStream}
 import java.util.UUID
-import java.util.concurrent.{Executors, ExecutorService, Future, TimeUnit}
+import java.util.concurrent.{ExecutorService, Executors, Future, TimeUnit}
 import java.util.zip.{ZipEntry, ZipOutputStream}
 
 import scala.collection.mutable
 import scala.xml.Node
-
 import com.google.common.io.ByteStreams
 import com.google.common.util.concurrent.{MoreExecutors, ThreadFactoryBuilder}
-import org.apache.hadoop.fs.{FileStatus, Path}
+import org.apache.hadoop.fs.{FileStatus, Path, PathFilter}
 import org.apache.hadoop.fs.permission.FsAction
 import org.apache.hadoop.hdfs.DistributedFileSystem
 import org.apache.hadoop.hdfs.protocol.HdfsConstants
 import org.apache.hadoop.security.AccessControlException
-
 import org.apache.spark.{SecurityManager, SparkConf, SparkException}
 import org.apache.spark.deploy.SparkHadoopUtil
 import org.apache.spark.internal.Logging
@@ -314,7 +312,15 @@ private[history] class FsHistoryProvider(conf: SparkConf, clock: Clock)
     try {
       val newLastScanTime = getNewLastScanTime()
       logDebug(s"Scanning $logDir with lastScanTime==$lastScanTime")
-      val statusList = Option(fs.listStatus(new Path(logDir))).map(_.toSeq)
+      val filter = new PathFilter {
+        override def accept(path: Path): Boolean = {
+          val name = path.getName
+          !(name.endsWith(s"${EventLoggingListener.LOG_ROTATE_SUFFIX}") ||
+            name.endsWith(s"${EventLoggingListener.APPLICATION}"))
+        }
+      }
+
+      val statusList = Option(fs.listStatus(new Path(logDir), filter)).map(_.toSeq)
         .getOrElse(Seq[FileStatus]())
       // scan for modified applications, replay and merge them
       val logInfos: Seq[FileStatus] = statusList
@@ -535,7 +541,6 @@ private[history] class FsHistoryProvider(conf: SparkConf, clock: Clock)
       }
       newIterator.foreach(addIfAbsent)
       oldIterator.foreach(addIfAbsent)
-
       applications = mergedApps
     }
   }
@@ -569,7 +574,6 @@ private[history] class FsHistoryProvider(conf: SparkConf, clock: Clock)
       }
 
       applications = appsToRetain
-
       val leftToClean = new mutable.ListBuffer[FsApplicationAttemptInfo]
       attemptsToClean.foreach { attempt =>
         try {
@@ -717,10 +721,15 @@ private[history] class FsHistoryProvider(conf: SparkConf, clock: Clock)
       prevFileSize: Long)(): Boolean = {
     lookup(appId, attemptId) match {
       case None =>
-        logDebug(s"Application Attempt $appId/$attemptId not found")
+        // TODO: CHANGE IT TO DEBUG
+        logInfo(s"Application Attempt $appId/$attemptId not found")
         false
       case Some(latest) =>
-        prevFileSize < latest.fileSize
+        // TODO: REMOVE THIS
+        logInfo(s"latest fileSize ${latest.fileSize} " +
+          s"prevFileSize: ${prevFileSize}, " +
+          s"updateProbe: ${prevFileSize != latest.fileSize}")
+        prevFileSize != latest.fileSize
     }
   }
 }

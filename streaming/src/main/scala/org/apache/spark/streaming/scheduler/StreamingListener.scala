@@ -33,7 +33,10 @@ sealed trait StreamingListenerEvent extends SparkListenerEvent {
 
 @DeveloperApi
 case class StreamingListenerApplicationStart(batchDuration: Long, startTime: Long)
-  extends StreamingListenerEvent
+  extends StreamingListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
+
 
 @DeveloperApi
 case class StreamingListenerApplicationEnd(endTime: Long) extends StreamingListenerEvent

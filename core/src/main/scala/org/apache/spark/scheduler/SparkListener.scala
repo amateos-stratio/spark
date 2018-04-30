@@ -36,6 +36,8 @@ import org.apache.spark.ui.SparkUI
 trait SparkListenerEvent {
   /* Whether output this event to the event log */
   protected[spark] def logEvent: Boolean = true
+  /* Whether output this event to the event Application log */
+  protected[spark] def logApplication: Boolean = false
 }
 
 @DeveloperApi
@@ -84,7 +86,9 @@ case class SparkListenerJobEnd(
 
 @DeveloperApi
 case class SparkListenerEnvironmentUpdate(environmentDetails: Map[String, Seq[(String, String)]])
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerBlockManagerAdded(
@@ -93,44 +97,64 @@ case class SparkListenerBlockManagerAdded(
     maxMem: Long,
     maxOnHeapMem: Option[Long] = None,
     maxOffHeapMem: Option[Long] = None) extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
 }
 
 @DeveloperApi
 case class SparkListenerBlockManagerRemoved(time: Long, blockManagerId: BlockManagerId)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
-case class SparkListenerUnpersistRDD(rddId: Int) extends SparkListenerEvent
+case class SparkListenerUnpersistRDD(rddId: Int) extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerExecutorAdded(time: Long, executorId: String, executorInfo: ExecutorInfo)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerExecutorRemoved(time: Long, executorId: String, reason: String)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerExecutorBlacklisted(
     time: Long,
     executorId: String,
     taskFailures: Int)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerExecutorUnblacklisted(time: Long, executorId: String)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
+
 
 @DeveloperApi
 case class SparkListenerNodeBlacklisted(
     time: Long,
     hostId: String,
     executorFailures: Int)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
+
 
 @DeveloperApi
 case class SparkListenerNodeUnblacklisted(time: Long, hostId: String)
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
+
 
 @DeveloperApi
 case class SparkListenerBlockUpdated(blockUpdatedInfo: BlockUpdatedInfo) extends SparkListenerEvent
@@ -144,7 +168,9 @@ case class SparkListenerBlockUpdated(blockUpdatedInfo: BlockUpdatedInfo) extends
 case class SparkListenerExecutorMetricsUpdate(
     execId: String,
     accumUpdates: Seq[(Long, Int, Int, Seq[AccumulableInfo])])
-  extends SparkListenerEvent
+  extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerApplicationStart(
@@ -153,7 +179,9 @@ case class SparkListenerApplicationStart(
     time: Long,
     sparkUser: String,
     appAttemptId: Option[String],
-    driverLogs: Option[Map[String, String]] = None) extends SparkListenerEvent
+    driverLogs: Option[Map[String, String]] = None) extends SparkListenerEvent {
+  override protected[spark] def logApplication: Boolean = true
+}
 
 @DeveloperApi
 case class SparkListenerApplicationEnd(time: Long) extends SparkListenerEvent

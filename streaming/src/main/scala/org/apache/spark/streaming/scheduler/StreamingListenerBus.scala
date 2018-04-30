@@ -54,6 +54,7 @@ private[streaming] abstract class StreamingListenerBus(sparkUI: Option[SparkUI])
               val streamingTab = new StreamingTab(listener, ui)
               streamingTab.attach()
             })
+            listener.onOtherEvent(event)
           case _ =>
         }
 

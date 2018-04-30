@@ -122,7 +122,7 @@ private[spark] class StreamingJobProgressListener(conf: SparkConf)
 
   override def onBatchStarted(batchStarted: StreamingListenerBatchStarted): Unit = synchronized {
     val batchUIData = BatchUIData(batchStarted.batchInfo)
-    runningBatchUIData(batchStarted.batchInfo.batchTime) = batchUIData
+    runningBatchUIData.update(batchStarted.batchInfo.batchTime, batchUIData)
     waitingBatchUIData.remove(batchStarted.batchInfo.batchTime)
 
     totalReceivedRecords += batchUIData.numRecords
@@ -147,15 +147,15 @@ private[spark] class StreamingJobProgressListener(conf: SparkConf)
   override def onOutputOperationStarted(
       outputOperationStarted: StreamingListenerOutputOperationStarted): Unit = synchronized {
     // This method is called after onBatchStarted
-    runningBatchUIData(outputOperationStarted.outputOperationInfo.batchTime).
-      updateOutputOperationInfo(outputOperationStarted.outputOperationInfo)
+    runningBatchUIData.get(outputOperationStarted.outputOperationInfo.batchTime).foreach(_.
+      updateOutputOperationInfo(outputOperationStarted.outputOperationInfo))
   }
 
   override def onOutputOperationCompleted(
       outputOperationCompleted: StreamingListenerOutputOperationCompleted): Unit = synchronized {
     // This method is called before onBatchCompleted
-    runningBatchUIData(outputOperationCompleted.outputOperationInfo.batchTime).
-      updateOutputOperationInfo(outputOperationCompleted.outputOperationInfo)
+    runningBatchUIData.get(outputOperationCompleted.outputOperationInfo.batchTime).foreach(_.
+      updateOutputOperationInfo(outputOperationCompleted.outputOperationInfo))
   }
 
   override def onStreamingJobStart(jobStart: StreamingOnJobStart): Unit = synchronized {
