@@ -53,6 +53,11 @@ $(document).ajaxStart(function () {
     $.blockUI({message: '<h3>Loading Executors Page...</h3>'});
 });
 
+
+function getUIRoot(rootURI) {
+  return !(typeof URLProxyBaseURI == 'undefined') && URLProxyBaseURI.length > 0 ? URLProxyBaseURI : rootURI;
+}
+
 function createTemplateURI(appId) {
     var words = document.baseURI.split('/');
     var ind = words.indexOf("proxy");
@@ -65,7 +70,9 @@ function createTemplateURI(appId) {
         var baseURI = words.slice(0, ind).join('/') + '/static/executorspage-template.html';
         return baseURI;
     }
-    return location.origin + "/static/executorspage-template.html";
+    var rootURI = location.origin;
+
+    return getUIRoot(rootURI) + "/static/executorspage-template.html";
 }
 
 function getStandAloneppId(cb) {
@@ -82,9 +89,11 @@ function getStandAloneppId(cb) {
         cb(appId);
         return;
     }
+    var rootURI = location.origin;
+
     //Looks like Web UI is running in standalone mode
     //Let's get application-id using REST End Point
-    $.getJSON(location.origin + "/api/v1/applications", function(response, status, jqXHR) {
+    $.getJSON(getUIRoot(rootURI) + "/api/v1/applications", function(response, status, jqXHR) {
         if (response && response.length > 0) {
             var appId = response[0].id
             cb(appId);
@@ -112,7 +121,9 @@ function createRESTEndPoint(appId) {
             return newBaseURI + "/api/v1/applications/" + appId + "/" + attemptId + "/allexecutors";
         }
     }
-    return location.origin + "/api/v1/applications/" + appId + "/allexecutors";
+   var rootURI = location.origin;
+
+   return getUIRoot(rootURI) + "/api/v1/applications/" + appId + "/allexecutors";
 }
 
 function formatLogsCells(execLogs, type) {

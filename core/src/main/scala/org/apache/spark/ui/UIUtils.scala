@@ -176,6 +176,8 @@ private[spark] object UIUtils extends Logging {
     <script src={prependBaseUri("/static/log-view.js")}></script>
     <script src={prependBaseUri("/static/webui.js")}></script>
     <script>setUIRoot('{UIUtils.uiRoot}')</script>
+  } ++ sys.props.get("spark.ui.proxyBase").fold(Seq.empty[Node]) { _ =>
+    <script> var URLProxyBaseURI = '{ {prependBaseUri("")} }'</script>
   }
 
   def vizHeaderNodes: Seq[Node] = {
