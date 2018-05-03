@@ -13,7 +13,7 @@
 * Add maximum retry limit for supervised drivers
 * Support for MultiHDFS
 
-## 2.2.0.5 (upcoming)
+## 2.2.0.5 (February 14, 2018)
 
 * Fixed Supervise mode
 * Separate stderr and stdout in dispatcher
