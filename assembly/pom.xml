@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.stratio.spark</groupId>
     <artifactId>spark-parent_2.11</artifactId>
-    <version>2.2.0.6-RC1</version>
+    <version>2.2.0.6-RC2-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -47,32 +47,32 @@
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-core_2.11</artifactId>
-      <version>2.2.0.6-RC1</version>
+      <version>2.2.0.6-RC2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-mllib_2.11</artifactId>
-      <version>2.2.0.6-RC1</version>
+      <version>2.2.0.6-RC2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-streaming_2.11</artifactId>
-      <version>2.2.0.6-RC1</version>
+      <version>2.2.0.6-RC2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-graphx_2.11</artifactId>
-      <version>2.2.0.6-RC1</version>
+      <version>2.2.0.6-RC2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-sql_2.11</artifactId>
-      <version>2.2.0.6-RC1</version>
+      <version>2.2.0.6-RC2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-repl_2.11</artifactId>
-      <version>2.2.0.6-RC1</version>
+      <version>2.2.0.6-RC2-SNAPSHOT</version>
     </dependency>
 
     <!--
@@ -134,7 +134,7 @@
         <dependency>
           <groupId>com.stratio.spark</groupId>
           <artifactId>spark-yarn_2.11</artifactId>
-          <version>2.2.0.6-RC1</version>
+          <version>2.2.0.6-RC2-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
@@ -149,7 +149,7 @@
         <dependency>
           <groupId>com.stratio.spark</groupId>
           <artifactId>spark-mesos_2.11</artifactId>
-          <version>2.2.0.6-RC1</version>
+          <version>2.2.0.6-RC2-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
@@ -159,7 +159,7 @@
         <dependency>
           <groupId>com.stratio.spark</groupId>
           <artifactId>spark-hive_2.11</artifactId>
-          <version>2.2.0.6-RC1</version>
+          <version>2.2.0.6-RC2-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
@@ -169,7 +169,7 @@
         <dependency>
           <groupId>com.stratio.spark</groupId>
           <artifactId>spark-hive-thriftserver_2.11</artifactId>
-          <version>2.2.0.6-RC1</version>
+          <version>2.2.0.6-RC2-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
@@ -179,7 +179,7 @@
         <dependency>
           <groupId>com.stratio.spark</groupId>
           <artifactId>spark-ganglia-lgpl_2.11</artifactId>
-          <version>2.2.0.6-RC1</version>
+          <version>2.2.0.6-RC2-SNAPSHOT</version>
         </dependency>
       </dependencies>
     </profile>
