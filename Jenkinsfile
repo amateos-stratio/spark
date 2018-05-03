@@ -44,7 +44,7 @@ hose {
     INSTALLPARAMETERS = """
         | -DDCOS_CLI_HOST=%%DCOSCLI#0
         | -DDCOS_IP=10.200.0.156
-        | -DPEM_PATH=src/test/resources/credentials/PaasIntegration.pem
+        | -DPEM_PATH=paascerts/PaasIntegration.pem
         | -DBOOTSTRAP_IP=10.200.0.155
         | -DSPARK_DOCKER_IMAGE=qa.stratio.com/stratio/stratio-spark
         | -DSPARK_HISTORY_SERVER_DOCKER_IMAGE=qa.stratio.com/stratio/spark-stratio-history-server
