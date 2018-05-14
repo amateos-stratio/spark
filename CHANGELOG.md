@@ -12,6 +12,7 @@
 * Add messages for errors in Vault
 * Add maximum retry limit for supervised drivers
 * Support for MultiHDFS
+* Fixed delegation tokens renewal time
 
 ## 2.2.0.5 (February 14, 2018)
 
