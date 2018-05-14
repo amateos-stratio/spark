@@ -19,15 +19,33 @@ package org.apache.spark.scheduler
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.security.UserGroupInformation
-
 import org.apache.spark.SparkConf
 import org.apache.spark.deploy.SparkHadoopUtil
 import org.apache.spark.internal.Logging
+import org.apache.spark.security.MultiHDFSConfig
+
+import scala.collection.mutable
+import scala.util.Try
 
 object KerberosUser extends Logging {
 
-  var conf: Option[Configuration] = None
-  var ugi: Option[UserGroupInformation] = None
+  private var conf: Option[Configuration] = None
+  private var ugi: Option[UserGroupInformation] = None
+  private val principalAndKeytabsCollection: mutable.Map[String, (String, String)] =
+    mutable.Map.empty
+
+  private[spark] def addPrincipalAndKeytab(
+                                            host: String,
+                                            principal: String,
+                                            keytab: String
+                                          ): Unit = {
+    principalAndKeytabsCollection.put(host, (principal, keytab))
+  }
+
+  private[spark] def retrieveNewUgi(host: String): UserGroupInformation = {
+    val (principal, keytab) = principalAndKeytabsCollection(host)
+    UserGroupInformation.loginUserFromKeytabAndReturnUGI(principal, keytab)
+  }
 
   def securize (principal: String, keytab: String) : Unit = {
     val hadoopConf = SparkHadoopUtil.get.newConfiguration(new SparkConf())
@@ -36,6 +54,11 @@ object KerberosUser extends Logging {
     UserGroupInformation.loginUserFromKeytab(principal, keytab)
     conf = Option(hadoopConf)
     ugi = Option(UserGroupInformation.getLoginUser)
+    addPrincipalAndKeytab(
+      host = MultiHDFSConfig.extractHDFSHostFromConf(hadoopConf),
+      principal,
+      keytab
+    )
   }
 
   private[spark] def baseUgiAndConf: Option[(UserGroupInformation, Configuration)] =

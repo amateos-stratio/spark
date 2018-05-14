@@ -27,6 +27,7 @@ import org.apache.spark.deploy.SparkHadoopUtil
 import org.apache.spark.deploy.security.HadoopDelegationTokenManager
 import org.apache.spark.internal.{Logging, config}
 import org.apache.spark.rpc.RpcEndpointRef
+import org.apache.spark.scheduler.KerberosUser
 import org.apache.spark.scheduler.cluster.CoarseGrainedClusterMessages.UpdateDelegationTokens
 import org.apache.spark.ui.UIUtils
 import org.apache.spark.util.ThreadUtils
@@ -132,8 +133,9 @@ private[spark] class MesosHadoopDelegationTokenManager(
     // Don't protect against keytabFile being empty because it's guarded above.
     val (ugi, hadoopConf) = ugisAndConfs(host)
     logInfo(s"Retrieved ugi and hadoopConf for host $host")
-    val tempCreds = ugi.getCredentials
-    val nextRenewalTime = ugi.doAs(new PrivilegedExceptionAction[Long] {
+    val newUgi = KerberosUser.retrieveNewUgi(host)
+    val tempCreds = newUgi.getCredentials
+    val nextRenewalTime = newUgi.doAs(new PrivilegedExceptionAction[Long] {
       override def run(): Long = {
         tokenManagers(host).obtainDelegationTokens(hadoopConf, tempCreds)
       }

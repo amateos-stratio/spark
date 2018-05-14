@@ -20,12 +20,11 @@ package org.apache.spark.security
 import java.util.UUID
 
 import scala.collection.mutable
-
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.security.UserGroupInformation
-
 import org.apache.spark.internal.Logging
+import org.apache.spark.scheduler.KerberosUser
 import org.apache.spark.security.HDFSConfig.downloadFile
 import org.apache.spark.util.Utils
 
@@ -78,20 +77,29 @@ object MultiHDFSConfig extends Logging{
 
     configurationIndexes.foreach { index =>
 
-        val configurationUri = options.get(index + CONF_URI_SUFIX)
-        val vaultPathUri = options.get(index + KERBEROS_VAULT_PATH_SUFIX)
+      val configurationUri = options.get(index + CONF_URI_SUFIX)
+      val vaultPathUri = options.get(index + KERBEROS_VAULT_PATH_SUFIX)
 
-        require(configurationUri.isDefined, s"${index + CONF_URI_SUFIX} variable not provided")
-        require(
-          vaultPathUri.isDefined,
-          s"${index + KERBEROS_VAULT_PATH_SUFIX} variable not provided"
-        )
+      require(configurationUri.isDefined, s"${index + CONF_URI_SUFIX} variable not provided")
+      require(
+        vaultPathUri.isDefined,
+        s"${index + KERBEROS_VAULT_PATH_SUFIX} variable not provided"
+      )
 
-        val conf = getConfigurationFromUri(configurationUri.get, connectTimeout, readTimeout)
-        val ugi = getUgiFromVaultPath(vaultPathUri.get)
-        val host = extractHDFSHostFromConf(conf)
-        multiHadoopPairs.put(host, (ugi, conf))
-        logInfo(s"Correctly processed MultiHDFS conf: $index* with hdfs host: $host")
+      val conf = getConfigurationFromUri(configurationUri.get, connectTimeout, readTimeout)
+      val host = extractHDFSHostFromConf(conf)
+      val (principal, keytab) = getUgiFromVaultPath(vaultPathUri.get)
+
+      KerberosUser.addPrincipalAndKeytab(host, principal, keytab)
+
+      logInfo(s"Downloaded multiHDFS keytab-principal for host $host")
+
+      val ugi = UserGroupInformation.loginUserFromKeytabAndReturnUGI(
+        principal,
+        keytab)
+
+      multiHadoopPairs.put(host, (ugi, conf))
+      logInfo(s"Correctly processed MultiHDFS conf: $index* with hdfs host: $host")
     }
 
     Map.empty
@@ -144,7 +152,7 @@ object MultiHDFSConfig extends Logging{
     configuration
   }
 
-  private def getUgiFromVaultPath(kerberosVaultPath: String): UserGroupInformation = {
+  private def getUgiFromVaultPath(kerberosVaultPath: String): (String, String) = {
 
     val (keytab64, principal) =
       VaultHelper.getKeytabPrincipalFromVault(kerberosVaultPath).get
@@ -153,13 +161,7 @@ object MultiHDFSConfig extends Logging{
 
     val pathWritten = KerberosConfig.getKeytabPrincipal(keytab64, principal, pathToWrite)
 
-    val ugi = UserGroupInformation.loginUserFromKeytabAndReturnUGI(
-      principal,
-      pathWritten)
-
-    logInfo(s"Finished processing multi HDFS ugi from $kerberosVaultPath")
-
-    ugi
+    (principal, pathWritten)
   }
 
 }
