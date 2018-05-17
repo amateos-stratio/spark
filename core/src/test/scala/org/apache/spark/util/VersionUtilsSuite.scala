@@ -25,12 +25,21 @@ class VersionUtilsSuite extends SparkFunSuite {
 
   test("Parse Spark major version") {
     assert(majorVersion("2.0") === 2)
+    assert(majorVersion("2.0-1.0.0") === 2)
     assert(majorVersion("12.10.11") === 12)
+    assert(majorVersion("12.10.11-1.0.0") === 12)
     assert(majorVersion("2.0.1-SNAPSHOT") === 2)
+    assert(majorVersion("2.0.1-1.0.0-SNAPSHOT") === 2)
     assert(majorVersion("2.0.x") === 2)
+    assert(majorVersion("2.0.x-x.x.x") === 2)
     withClue("majorVersion parsing should fail for invalid major version number") {
       intercept[IllegalArgumentException] {
         majorVersion("2z.0")
+      }
+    }
+    withClue("majorVersion parsing should fail for invalid major version number") {
+      intercept[IllegalArgumentException] {
+        majorVersion("2z.0-1.0.0")
       }
     }
     withClue("majorVersion parsing should fail for invalid minor version number") {
@@ -38,16 +47,30 @@ class VersionUtilsSuite extends SparkFunSuite {
         majorVersion("2.0z")
       }
     }
+    withClue("majorVersion parsing should fail for invalid minor version number") {
+      intercept[IllegalArgumentException] {
+        majorVersion("2.0z-1.0.0")
+      }
+    }
   }
 
   test("Parse Spark minor version") {
     assert(minorVersion("2.0") === 0)
+    assert(minorVersion("2.0-1.1.0") === 0)
     assert(minorVersion("12.10.11") === 10)
+    assert(minorVersion("12.10.11-1.1.0") === 10)
     assert(minorVersion("2.0.1-SNAPSHOT") === 0)
+    assert(minorVersion("2.0.1-1.1.0-SNAPSHOT") === 0)
     assert(minorVersion("2.0.x") === 0)
+    assert(minorVersion("2.0.x-1.1.0") === 0)
     withClue("minorVersion parsing should fail for invalid major version number") {
       intercept[IllegalArgumentException] {
         minorVersion("2z.0")
+      }
+    }
+    withClue("minorVersion parsing should fail for invalid major version number") {
+      intercept[IllegalArgumentException] {
+        minorVersion("2z.0-1.1.0")
       }
     }
     withClue("minorVersion parsing should fail for invalid minor version number") {
@@ -55,21 +78,40 @@ class VersionUtilsSuite extends SparkFunSuite {
         minorVersion("2.0z")
       }
     }
+    withClue("minorVersion parsing should fail for invalid minor version number") {
+      intercept[IllegalArgumentException] {
+        minorVersion("2.0z-1.1.0")
+      }
+    }
   }
 
   test("Parse Spark major and minor versions") {
     assert(majorMinorVersion("2.0") === (2, 0))
+    assert(majorMinorVersion("2.0-1.1.0") === (2, 0))
     assert(majorMinorVersion("12.10.11") === (12, 10))
+    assert(majorMinorVersion("12.10.11-1.1.0") === (12, 10))
     assert(majorMinorVersion("2.0.1-SNAPSHOT") === (2, 0))
+    assert(majorMinorVersion("2.0.1-1.1.0-SNAPSHOT") === (2, 0))
     assert(majorMinorVersion("2.0.x") === (2, 0))
+    assert(majorMinorVersion("2.0.x-1.1.0") === (2, 0))
     withClue("majorMinorVersion parsing should fail for invalid major version number") {
       intercept[IllegalArgumentException] {
         majorMinorVersion("2z.0")
       }
     }
+    withClue("majorMinorVersion parsing should fail for invalid major version number") {
+      intercept[IllegalArgumentException] {
+        majorMinorVersion("2z.0-1.1.0")
+      }
+    }
     withClue("majorMinorVersion parsing should fail for invalid minor version number") {
       intercept[IllegalArgumentException] {
         majorMinorVersion("2.0z")
+      }
+    }
+    withClue("majorMinorVersion parsing should fail for invalid minor version number") {
+      intercept[IllegalArgumentException] {
+        majorMinorVersion("2.0z-1.1.0")
       }
     }
   }

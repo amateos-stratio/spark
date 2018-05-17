@@ -22,7 +22,7 @@ package org.apache.spark.util
  */
 private[spark] object VersionUtils {
 
-  private val majorMinorRegex = """^(\d+)\.(\d+)(\..*)?$""".r
+  private val majorMinorRegex = """^(\d+)\.(\d+)((\.|\-).*)?$""".r
 
   /**
    * Given a Spark version string, return the major version number.

@@ -21,17 +21,17 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.stratio.spark</groupId>
-    <artifactId>spark-parent_2.11</artifactId>
-    <version>2.2.0.6-RC2-SNAPSHOT</version>
+    <artifactId>spark-parent-2.2.0_2.11</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>spark-network-common_2.11</artifactId>
+  <artifactId>spark-network-common-2.2.0_2.11</artifactId>
   <packaging>jar</packaging>
   <name>Spark Project Networking</name>
   <url>http://spark.apache.org/</url>
   <properties>
-    <sbt.project.name>network-common</sbt.project.name>
+    <sbt.project.name>network-common-2.2.0</sbt.project.name>
   </properties>
 
   <dependencies>
@@ -90,7 +90,7 @@
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-tags_2.11</artifactId>
+      <artifactId>spark-tags-2.2.0_2.11</artifactId>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

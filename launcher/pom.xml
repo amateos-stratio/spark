@@ -21,17 +21,17 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.stratio.spark</groupId>
-    <artifactId>spark-parent_2.11</artifactId>
-    <version>2.2.0.6-RC2-SNAPSHOT</version>
+    <artifactId>spark-parent-2.2.0_2.11</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>spark-launcher_2.11</artifactId>
+  <artifactId>spark-launcher-2.2.0_2.11</artifactId>
   <packaging>jar</packaging>
   <name>Spark Project Launcher</name>
   <url>http://spark.apache.org/</url>
   <properties>
-    <sbt.project.name>launcher</sbt.project.name>
+    <sbt.project.name>launcher-2.2.0</sbt.project.name>
   </properties>
 
   <dependencies>
@@ -64,7 +64,7 @@
 
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-tags_2.11</artifactId>
+      <artifactId>spark-tags-2.2.0_2.11</artifactId>
     </dependency>
 
     <!--
@@ -73,7 +73,7 @@
     -->
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-tags_2.11</artifactId>
+      <artifactId>spark-tags-2.2.0_2.11</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>

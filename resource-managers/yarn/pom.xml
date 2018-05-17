@@ -19,41 +19,41 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.stratio.spark</groupId>
-    <artifactId>spark-parent_2.11</artifactId>
-    <version>2.2.0.6-RC2-SNAPSHOT</version>
+    <artifactId>spark-parent-2.2.0_2.11</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
   </parent>
 
-  <artifactId>spark-yarn_2.11</artifactId>
+  <artifactId>spark-yarn-2.2.0_2.11</artifactId>
   <packaging>jar</packaging>
   <name>Spark Project YARN</name>
   <properties>
-    <sbt.project.name>yarn</sbt.project.name>
+    <sbt.project.name>yarn-2.2.0</sbt.project.name>
     <jersey-1.version>1.9</jersey-1.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>2.2.0.6-RC2-SNAPSHOT</version>
+      <artifactId>spark-core-2.2.0_2.11</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-network-yarn_2.11</artifactId>
-      <version>2.2.0.6-RC2-SNAPSHOT</version>
+      <artifactId>spark-network-yarn-2.2.0_2.11</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>2.2.0.6-RC2-SNAPSHOT</version>
+      <artifactId>spark-core-2.2.0_2.11</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-tags_2.11</artifactId>
+      <artifactId>spark-tags-2.2.0_2.11</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>

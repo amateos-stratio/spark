@@ -20,14 +20,14 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.stratio.spark</groupId>
-    <artifactId>spark-parent_2.11</artifactId>
-    <version>2.2.0.6-RC2-SNAPSHOT</version>
+    <artifactId>spark-parent-2.2.0_2.11</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+  <artifactId>spark-streaming-kafka-0-10-2.2.0_2.11</artifactId>
   <properties>
-    <sbt.project.name>streaming-kafka-0-10</sbt.project.name>
+    <sbt.project.name>streaming-kafka-0-10-2.2.0</sbt.project.name>
   </properties>
   <packaging>jar</packaging>
   <name>Spark Integration for Kafka 0.10</name>
@@ -36,14 +36,14 @@
   <dependencies>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-streaming_2.11</artifactId>
-      <version>2.2.0.6-RC2-SNAPSHOT</version>
+      <artifactId>spark-streaming-2.2.0_2.11</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>2.2.0.6-RC2-SNAPSHOT</version>
+      <artifactId>spark-core-2.2.0_2.11</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
@@ -87,7 +87,7 @@
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-tags_2.11</artifactId>
+      <artifactId>spark-tags-2.2.0_2.11</artifactId>
     </dependency>
 
     <!--
@@ -96,7 +96,7 @@
     -->
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-tags_2.11</artifactId>
+      <artifactId>spark-tags-2.2.0_2.11</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
