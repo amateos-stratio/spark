@@ -19,8 +19,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.stratio.spark</groupId>
-    <artifactId>spark-parent_2.11</artifactId>
-    <version>2.2.0.6-RC2-SNAPSHOT</version>
+    <artifactId>spark-parent-2.2.0_2.11</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
   </parent>
 
@@ -30,14 +30,14 @@
   <name>Spark Ganglia Integration</name>
 
   <properties>
-    <sbt.project.name>ganglia-lgpl</sbt.project.name>
+    <sbt.project.name>ganglia-lgpl-2.2.0</sbt.project.name>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.stratio.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>2.2.0.6-RC2-SNAPSHOT</version>
+      <artifactId>spark-core-2.2.0_2.11</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
