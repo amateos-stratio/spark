@@ -39,7 +39,7 @@ DISTDIR="$SPARK_HOME/dist"
 
 VERSION=$1
 
-echo "Making spark-${VERSION}-bin-stratio.tgz"
+echo "Making stratio-spark-distribution-${VERSION}-bin.tgz"
 
 
 # Build uber fat JAR
@@ -95,10 +95,10 @@ if [ -d "$SPARK_HOME"/R/lib/SparkR ]; then
   cp "$SPARK_HOME/R/lib/sparkr.zip" "$DISTDIR"/R/lib
 fi
 
-TARDIR_NAME=spark-${VERSION}-bin-stratio
+TARDIR_NAME=stratio-spark-distribution-${VERSION}-bin
 TARDIR="$SPARK_HOME/$TARDIR_NAME"
 rm -rf "$TARDIR"
 cp -r "$DISTDIR" "$TARDIR"
-tar czf "spark-${VERSION}-bin-stratio.tgz" -C "$SPARK_HOME" "$TARDIR_NAME"
+tar czf "stratio-spark-distribution-${VERSION}-bin.tgz" -C "$SPARK_HOME" "$TARDIR_NAME"
 rm -rf "$TARDIR"
 
