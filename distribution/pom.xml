@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
 </parent>
-<artifactId>stratio-spark-distribution</artifactId>
+<artifactId>stratio-spark-distribution-2.2.0</artifactId>
 <packaging>pom</packaging>
 <name>Spark tgz distribution</name>
 <dependencies>
@@ -102,7 +102,7 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>${basedir}/../spark-${project.version}-bin-stratio.tgz</file>
+                                    <file>${basedir}/../stratio-spark-distribution-${spark.upstream.version}-${project.version}-bin.tgz</file>
                                     <type>tgz</type>
                                 </artifact>
                             </artifacts>
