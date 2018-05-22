@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.0-1.1.0 (upcoming)
+## 2.2.0-1.0.0 (upcoming)
 
 * Fix security validation check
 * Vault connection certificates are obtained dynamically
