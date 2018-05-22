@@ -11,6 +11,9 @@ hose {
     MAVEN_THREADSPERCORE = 2
     PKGMODULESNAMES = ['stratio-spark']
 
+    NEW_VERSIONING = true
+    FREESTYLE_BRANCHING = true
+
     DEV = { config ->
 
         doPackage(config)
