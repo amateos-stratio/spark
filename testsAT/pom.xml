@@ -19,7 +19,7 @@
 
     <groupId>com.stratio.paas</groupId>
     <artifactId>spark-at-2.2.0</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-${revision}-${revision}</version>
     <name>Spark Acceptance Tests</name>
 
     <build>

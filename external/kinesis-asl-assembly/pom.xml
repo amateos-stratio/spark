@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.stratio.spark</groupId>
     <artifactId>spark-parent-2.2.0_2.11</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-${revision}</version>
 
   </parent>
 
@@ -38,12 +38,12 @@
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-streaming-kinesis-asl-2.2.0_2.11</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0-${revision}</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-streaming-2.2.0_2.11</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0-${revision}</version>
       <scope>provided</scope>
     </dependency>
     <!--
