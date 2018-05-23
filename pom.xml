@@ -1833,9 +1833,9 @@
         <version>${antlr4.version}</version>
       </dependency>
       <dependency>
-        <groupId>${jline.groupid}</groupId>
+        <groupId>jline</groupId>
         <artifactId>jline</artifactId>
-        <version>${jline.version}</version>
+        <version>2.12.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
