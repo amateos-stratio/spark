@@ -41,7 +41,8 @@ hose {
                                       'DCOS_PASSWORD=1234',
                                       'BOOTSTRAP_USER=operador',
                                       'PEM_FILE_PATH=/paascerts/PaasIntegration.pem'],
-                           'sleep':  10]]
+                           'sleep':  120,
+			   'healthcheck': 5000]]
         ]
 
     INSTALLPARAMETERS = """
@@ -62,7 +63,13 @@ hose {
 
     INSTALL = { config, params ->
       def ENVIRONMENTMAP = stringToMap(params.ENVIRONMENT)      
-      doAT(conf: config)
+
+      if (config.INSTALLPARAMETERS.contains('GROUPS_SPARK')) {
+      	config.INSTALLPARAMETERS = "${config.INSTALLPARAMETERS}".replaceAll('-DGROUPS_SPARK', '-Dgroups')
+	doAT(conf: config)
+      } else {
+      	doAT(conf: config)
+      }
     }
 
 }
