@@ -1,6 +1,10 @@
 # Changelog
 
-## 2.2.0-1.0.0 (upcoming)
+## 2.2.0-1.1.0 (upcoming)
+
+* Pending changelog
+
+## 2.2.0-1.0.0-e3622dd (Built: May 24, 2018 | Pre-release)
 
 * Fix security validation check
 * Vault connection certificates are obtained dynamically
