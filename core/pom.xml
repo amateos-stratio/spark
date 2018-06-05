@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.stratio.spark</groupId>
     <artifactId>spark-parent-2.2.0_2.11</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -70,22 +70,22 @@
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-launcher-2.2.0_2.11</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-network-common-2.2.0_2.11</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-network-shuffle-2.2.0_2.11</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.stratio.spark</groupId>
       <artifactId>spark-unsafe-2.2.0_2.11</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>net.java.dev.jets3t</groupId>
