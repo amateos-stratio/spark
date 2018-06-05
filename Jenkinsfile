@@ -63,7 +63,12 @@ hose {
 
     INSTALL = { config, params ->
       def ENVIRONMENTMAP = stringToMap(params.ENVIRONMENT)      
-      doAT(conf: config)
+      if (config.INSTALLPARAMETERS.contains('GROUPS_SPARK')) {
+        config.INSTALLPARAMETERS = "${config.INSTALLPARAMETERS}".replaceAll('-DGROUPS_SPARK', '-Dgroups')
+        doAT(conf: config)
+      } else {
+        doAT(conf: config)
+      }
     }
 
 }
