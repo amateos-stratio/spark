@@ -44,7 +44,7 @@ Feature: [Fault Tolerance test] Driver supervise false
     Then I open a ssh connection to '!{DRIVER_IP}' with user 'root' and password 'stratio'
 
     #Wait first for having a running docker and rm them
-    Then I run 'docker ps | grep ${SPARK_DRIVER_DOCKER_IMAGE:-qa.stratio.com/stratio/spark-stratio-driver}:${STRATIO_SPARK_VERSION} | cut -d ' ' -f 1 | while read x; do cmd=$(docker inspect $x | jq '.[]|.Args'); echo $x $cmd; done | grep -m 1 "/bin/spark-submit" | cut -d ' ' -f 1' in the ssh connection and save the value in environment variable 'DOCKER_ID'
+    Then I run 'docker ps | grep ${SPARK_DRIVER_DOCKER_IMAGE:-qa.stratio.com/stratio/spark-stratio-driver}:${STRATIO_SPARK_VERSION} | cut -d ' ' -f 1 | while read x; do cmd=$(docker inspect $x | jq '.[]|.Config.Env'); echo $x $cmd; done | grep -m 1 "/bin/spark-submit" | cut -d ' ' -f 1' in the ssh connection and save the value in environment variable 'DOCKER_ID'
     Then I run 'docker rm -f !{DOCKER_ID}' in the ssh connection
 
     #Check the driver is killed (not relaunched)
