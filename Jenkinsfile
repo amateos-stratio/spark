@@ -9,7 +9,7 @@ hose {
     RELEASETIMEOUT = 200
     BUILDTOOLVERSION = '3.5.0'
     MAVEN_THREADSPERCORE = 2
-    PKGMODULESNAMES = ['stratio-spark']
+    PKGMODULESNAMES = ['stratio-spark','spark-stratio-driver','spark-stratio-history-server']
 
     NEW_VERSIONING = true
     FREESTYLE_BRANCHING = true
@@ -19,7 +19,7 @@ hose {
         doPackage(config)
         doUT(config)
         parallel(DOCKER1: {
-                    doDocker(conf: config, dockerfile:"DockerfileDispatcher")
+                    doDocker(conf: config, dockerfile:"DockerfileDispatcher", image:"stratio-spark")
                 },DOCKER2: {
                     doDocker(conf: config, dockerfile:"DockerfileDriver", image:"spark-stratio-driver")
                 }, DEPLOY: {
